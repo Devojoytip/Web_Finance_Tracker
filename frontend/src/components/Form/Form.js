@@ -102,7 +102,7 @@ const FormStyled = styled.form`
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    input, textarea, select{
+    input, textarea, select, button{
         font-family: inherit;
         font-size: inherit;
         outline: none;
@@ -113,6 +113,8 @@ const FormStyled = styled.form`
         background: transparent;
         resize: none;
         box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
+        position: relative;
+        left: 1%;
         color: rgba(34, 34, 96, 0.9);
         &::placeholder{
             color: rgba(34, 34, 96, 0.4);
@@ -127,7 +129,9 @@ const FormStyled = styled.form`
     .selects{
         display: flex;
         justify-content: flex-end;
+        width: 100%;
         select{
+            width: 100%;
             color: rgba(34, 34, 96, 0.4);
             &:focus, &:active{
                 color: rgba(34, 34, 96, 1);
