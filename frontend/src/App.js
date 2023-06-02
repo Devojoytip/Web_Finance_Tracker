@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from "styled-components";
 import bg from './img/bg.png'
-import {MainLayout} from './styles/Layouts'
+import { MainLayout } from './styles/Layouts'
 import Orb from './components/Orb/Orb';
 import Navigation from './components/Navigation/Navigation';
-import { useState,useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import Dashboard from './components/Dashboard/Dashboard';
 import Income from './components/Income/Income';
 import Expenses from './components/Expenses/Expenses';
@@ -14,32 +14,33 @@ function App() {
   const [active, setActive] = useState(1);
 
   const displayData = () => {
-    switch(active){
+    switch (active) {
       case 1:
         return <Dashboard />
       case 2:
         return <Dashboard />
       case 3:
         return <Income />
-      case 4: 
+      case 4:
         return <Expenses />
-      default: 
+      default:
         return <Dashboard />
     }
   }
 
   const orbMemo = useMemo(() => {
     return <Orb />
-  },[])
+  }, [])
 
   return (
     <AppStyled bg={bg} className="App">
       {orbMemo}
       <MainLayout>
-      <Navigation active={active} setActive={setActive} />
-      <main>
-        {displayData()}
-      </main>
+        <Navigation active={active} setActive={setActive} />
+        <main>
+          {/* Display the component clicked by the user on the navigation bar */}
+          {displayData()}
+        </main>
       </MainLayout>
     </AppStyled>
   );

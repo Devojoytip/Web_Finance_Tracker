@@ -19,7 +19,7 @@ function Navigation({ active, setActive }) {
                 {menuItems.map((item) => {
                     return <li
                         key={item.id}
-                        onClick={() => setActive(item.id)}
+                        onClick={() => setActive(item.id)} // Set the active component
                         className={active === item.id ? 'active' : ''}
                     >
                         {item.icon}
