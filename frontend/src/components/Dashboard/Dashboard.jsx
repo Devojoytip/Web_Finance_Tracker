@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useGlobalContext } from '../../context/globalContext';
-import History from '../../History/History';
+import Transactions from '../../Transactions/Transactions';
 import { InnerLayout } from '../../styles/Layouts';
 import { rupee } from '../../utils/Icons';
 import Chart from '../Chart/Chart';
 
 function Dashboard() {
-    const {totalExpenses,incomes, expenses, totalIncome, totalBalance, getIncomes, getExpenses } = useGlobalContext()
+    const { totalExpenses, incomes, expenses, totalIncome, totalBalance, getIncomes, getExpenses } = useGlobalContext()
 
     useEffect(() => {
         getIncomes()
@@ -42,8 +42,8 @@ function Dashboard() {
                             </div>
                         </div>
                     </div>
-                    <div className="history-con">
-                        <History />
+                    <div className="transaction-con">
+                        <Transactions />
                         <h2 className="salary-title">Min <span>Salary</span>Max</h2>
                         <div className="salary-item">
                             <p>
@@ -112,7 +112,7 @@ const DashboardStyled = styled.div`
             }
         }
 
-        .history-con{
+        .transaction-con{
             grid-column: 4 / -1;
             h2{
                 margin: 1rem 0;

@@ -8,7 +8,7 @@ import { useState, useMemo } from 'react';
 import Dashboard from './components/Dashboard/Dashboard';
 import Income from './components/Income/Income';
 import Expenses from './components/Expenses/Expenses';
-import History from './History/History';
+import History from './Transactions/Transactions';
 
 function App() {
 
