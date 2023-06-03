@@ -14,8 +14,7 @@ const IncomeSchema = new mongoose.Schema({
         trim: true
     },
     type: {
-        type: String,
-        default:"income"
+        type: String
     },
     date: {
         type: Date,
@@ -25,7 +24,7 @@ const IncomeSchema = new mongoose.Schema({
     category: {
         type: String,
         required: true,
-        trim: true
+        default: 'Income',
     },
     description: {
         type: String,

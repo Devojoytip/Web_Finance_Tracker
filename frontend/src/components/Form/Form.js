@@ -13,11 +13,12 @@ function Form() {
         title: '',
         amount: '',
         date: '',
-        category: '',
+        category: 'Income',
         description: '',
+        type: ''
     })
 
-    const { title, amount, date, category, description } = inputState;
+    const { title, amount, date, category, description, type } = inputState;
 
     const handleInput = name => e => {
         setInputState({ ...inputState, [name]: e.target.value })
@@ -31,8 +32,9 @@ function Form() {
             title: '',
             amount: '',
             date: '',
-            category: '',
+            category: 'Income',
             description: '',
+            type: ''
         })
     }
 
@@ -68,7 +70,7 @@ function Form() {
                 />
             </div>
             <div className="selects input-control">
-                <select required value={category} name="category" id="category" onChange={handleInput('category')}>
+                <select required value={type} name="type" id="type" onChange={handleInput('type')}>
                     <option value="" disabled >Select Option</option>
                     <option value="salary">Salary</option>
                     <option value="freelancing">Freelancing</option>

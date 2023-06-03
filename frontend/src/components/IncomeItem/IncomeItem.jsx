@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { dateFormat } from '../../utils/dateFormat';
-import { bitcoin, book, calender, card, circle, clothing, comment, dollar, food, freelance, medical, money, piggy, stocks, takeaway, trash, tv, users, yt } from '../../utils/Icons';
+import { bitcoin, book, calender, card, circle, clothing, comment, food, freelance, medical, money, piggy, stocks, takeaway, trash, tv, users, yt, rupee } from '../../utils/Icons';
 import Button from '../Button/Button';
 
 function IncomeItem({
@@ -17,7 +17,7 @@ function IncomeItem({
 }) {
 
     const categoryIcon = () =>{
-        switch(category) {
+        switch(type) {
             case 'salary':
                 return money;
             case 'freelancing':
@@ -40,7 +40,7 @@ function IncomeItem({
     }
 
     const expenseCatIcon = () => {
-        switch (category) {
+        switch (type) {
             case 'education':
                 return book;
             case 'groceries':
@@ -67,18 +67,18 @@ function IncomeItem({
     return (
         <IncomeItemStyled indicator={indicatorColor}>
             <div className="icon">
-                {type === 'expense' ? expenseCatIcon() : categoryIcon()}
+                {category === 'expense' ? expenseCatIcon() : categoryIcon()}
             </div>
             <div className="content">
                 <h5>{title}</h5>
                 <div className="inner-content">
                     <div className="text">
-                        <p>{dollar} {amount}</p>
+                        <p>{rupee} {amount}</p>
                         <p>{calender} {dateFormat(date)}</p>
-                        <p>
+                        {/* <p>
                             {comment}
                             {description}
-                        </p>
+                        </p> */}
                     </div>
                     <div className="btn-con">
                         <Button 
@@ -111,8 +111,8 @@ const IncomeItemStyled = styled.div`
     width: 100%;
     color: #222260;
     .icon{
-        width: 80px;
-        height: 80px;
+        width: 60px;
+        height: 60px;
         border-radius: 20px;
         background: #F5F5F5;
         display: flex;
@@ -121,6 +121,8 @@ const IncomeItemStyled = styled.div`
         border: 2px solid #FFFFFF;
         i{
             font-size: 2.6rem;
+            width: 60px;
+            height: 50px;
         }
     }
 
