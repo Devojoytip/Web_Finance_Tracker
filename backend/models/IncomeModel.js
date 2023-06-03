@@ -24,7 +24,7 @@ const IncomeSchema = new mongoose.Schema({
     category: {
         type: String,
         required: true,
-        default: 'Income',
+        default: 'Income'
     },
     description: {
         type: String,

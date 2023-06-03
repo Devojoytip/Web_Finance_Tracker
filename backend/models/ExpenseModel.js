@@ -14,8 +14,7 @@ const ExpenseSchema = new mongoose.Schema({
         trim: true
     },
     type: {
-        type: String,
-        required: true,
+        type: String
     },
     date: {
         type: Date,
