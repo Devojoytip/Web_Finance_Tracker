@@ -8,6 +8,7 @@ import { useState, useMemo } from 'react';
 import Dashboard from './components/Dashboard/Dashboard';
 import Income from './components/Income/Income';
 import Expenses from './components/Expenses/Expenses';
+import History from './History/History';
 
 function App() {
 
@@ -18,7 +19,7 @@ function App() {
       case 1:
         return <Dashboard />
       case 2:
-        return <Dashboard />
+        return <History />
       case 3:
         return <Income />
       case 4:
