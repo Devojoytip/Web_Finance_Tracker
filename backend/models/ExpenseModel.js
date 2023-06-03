@@ -15,7 +15,7 @@ const ExpenseSchema = new mongoose.Schema({
     },
     type: {
         type: String,
-        default:"expense"
+        required: true,
     },
     date: {
         type: Date,
@@ -24,8 +24,8 @@ const ExpenseSchema = new mongoose.Schema({
     },
     category: {
         type: String,
-        required: true,
-        trim: true
+        default:"Expense",
+        required: true
     },
     description: {
         type: String,
