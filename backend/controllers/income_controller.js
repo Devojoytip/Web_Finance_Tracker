@@ -39,6 +39,16 @@ exports.getIncomes = async (req, res) =>{
     }
 }
 
+exports.getCurrIncome = async (req, res) =>{
+    try {
+        const curr_income = await IncomeSchema.findOne({_id:req.params.id})
+        console.log('curr_income :>> ', curr_income)
+        res.status(200).json(curr_income)
+    } catch (error) {
+        res.status(500).json('Error calling getCurrIncome API',error.message);
+    }
+}
+
 exports.deleteIncome = async (req, res) =>{
     const {id} = req.params;
     IncomeSchema.findByIdAndDelete(id)

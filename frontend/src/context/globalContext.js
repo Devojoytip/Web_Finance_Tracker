@@ -8,6 +8,13 @@ const GlobalContext = React.createContext()
 export const GlobalProvider = ({children}) => {
 
     const [incomes, setIncomes] = useState([])
+    const [currIncome, setCurrIncome] = useState({
+        curr_title:"",
+        curr_amount:"",
+        curr_type:"",
+        curr_date:"",
+        curr_category:"",
+        curr_description:""})
     const [expenses, setExpenses] = useState([])
     const [error, setError] = useState(null)
 
@@ -28,9 +35,34 @@ export const GlobalProvider = ({children}) => {
         console.log(response.data)
     }
 
+    // Copilot command - create function to get current income
+    const getCurrIncome = async (id) => {
+        const response = await axios.get(`${BASE_URL}get-income/${id}`)
+        let curr_income = response.data
+        curr_income = { ...curr_income, date: curr_income.date.substring(0, 10) };
+        // let curr_date = curr_income.date;
+        // const parts = curr_date.split("-");
+        // const formattedDate = `${parts[2]}/${parts[1]}/${parts[0]}`;
+        // curr_income = { ...curr_income, date: formattedDate };
+        // setCurrIncome(curr_income)
+        console.log('curr income',curr_income)
+
+        return curr_income
+    }
+
     // Copilot command - create function to delete income
     const deleteIncome = async (id) => {
         const res  = await axios.delete(`${BASE_URL}delete-income/${id}`)
+        getIncomes()
+    }
+
+    // Copilot command - create function to get edit income
+    const editIncome = async (id,income) => {
+        const res  = await axios.delete(`${BASE_URL}delete-income/${id}`)
+        const response = await axios.post(`${BASE_URL}add-income`, income)
+            .catch((err) =>{
+                setError(err.response.data.message)
+            })
         getIncomes()
     }
 
@@ -107,6 +139,9 @@ export const GlobalProvider = ({children}) => {
             deleteExpense,
             totalExpenses,
             totalBalance,
+            currIncome,
+            setCurrIncome,
+            getCurrIncome,
             transactionHistory,
             error,
             setError

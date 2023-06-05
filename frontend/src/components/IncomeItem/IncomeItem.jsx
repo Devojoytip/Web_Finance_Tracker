@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
 import { dateFormat } from '../../utils/dateFormat';
-import { bitcoin, book, calender, card, circle, clothing, comment, food, freelance, medical, money, piggy, stocks, takeaway, trash, tv, users, yt, rupee } from '../../utils/Icons';
+import { bitcoin, book, calender, card, circle, clothing, edit, food, freelance, medical, money, piggy, stocks, takeaway, trash, tv, users, yt, rupee } from '../../utils/Icons';
 import Button from '../Button/Button';
+import { useGlobalContext } from '../../context/globalContext';
 
 function IncomeItem({
     id,
@@ -10,14 +11,13 @@ function IncomeItem({
     amount,
     date,
     category,
-    description,
     deleteItem,
     indicatorColor,
     type
 }) {
 
-    const categoryIcon = () =>{
-        switch(type) {
+    const categoryIcon = () => {
+        switch (type) {
             case 'salary':
                 return money;
             case 'freelancing':
@@ -64,10 +64,35 @@ function IncomeItem({
 
     console.log('type', type)
 
+    const ref = useRef(null)
+    const refClose = useRef(null)
+
+    const { currIncome, setCurrIncome, getCurrIncome } = useGlobalContext()
+
+    const updateItem = async (id) => {
+        const res = await getCurrIncome(id);
+        console.log('curr income(res) ',res)
+        // await deleteItem(id);
+        setCurrIncome(res)
+    }
+
+    const [note, setNote] = useState({ id: "", etitle: "", edescription: "", etag: "" })
+
+    const handleClick = (e) => {
+        console.log('Updating note')
+        // editNote(note.id, note.etitle, note.edescription, note.etag)
+        refClose.current.click()
+    }
+
+    const onChange = (e) => {
+        setNote({ ...note, [e.target.name]: e.target.value })
+    }
+
     return (
         <IncomeItemStyled indicator={indicatorColor}>
+
             <div className="icon">
-                {category === 'expense' ? expenseCatIcon() : categoryIcon()}
+                {category === 'Expense' ? expenseCatIcon() : categoryIcon()}
             </div>
             <div className="content">
                 <h5>{title}</h5>
@@ -80,8 +105,13 @@ function IncomeItem({
                             {description}
                         </p> */}
                     </div>
-                    <div className="btn-con">
-                        <Button 
+                    <div className="btn-con" style={
+                        {
+                            display: "flex",
+                            alignItems: 'center',
+                            gap: '1rem'
+                        }} >
+                        <Button
                             icon={trash}
                             bPad={'1rem'}
                             bRad={'50%'}
@@ -90,6 +120,16 @@ function IncomeItem({
                             iColor={'#fff'}
                             hColor={'var(--color-green)'}
                             onClick={() => deleteItem(id)}
+                        />
+                        <Button
+                            icon={edit}
+                            bPad={'1rem'}
+                            bRad={'50%'}
+                            bg={'var(--primary-color'}
+                            color={'#fff'}
+                            iColor={'#fff'}
+                            hColor={'var(--color-green)'}
+                            onClick={() => updateItem(id)}
                         />
                     </div>
                 </div>
