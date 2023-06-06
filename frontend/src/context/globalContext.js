@@ -5,16 +5,18 @@ const BASE_URL = "http://localhost:5000/api/v1/";
 
 const GlobalContext = React.createContext()
 
-export const GlobalProvider = ({children}) => {
+export const GlobalProvider = ({ children }) => {
 
     const [incomes, setIncomes] = useState([])
     const [currIncome, setCurrIncome] = useState({
-        curr_title:"",
-        curr_amount:"",
-        curr_type:"",
-        curr_date:"",
-        curr_category:"",
-        curr_description:""})
+        curr_id: "",
+        curr_title: "",
+        curr_amount: "",
+        curr_type: "",
+        curr_date: "",
+        curr_category: "",
+        curr_description: ""
+    })
     const [expenses, setExpenses] = useState([])
     const [error, setError] = useState(null)
 
@@ -22,7 +24,7 @@ export const GlobalProvider = ({children}) => {
     // Copilot command - create add income function
     const addIncome = async (income) => {
         const response = await axios.post(`${BASE_URL}add-income`, income)
-            .catch((err) =>{
+            .catch((err) => {
                 setError(err.response.data.message)
             })
         getIncomes()
@@ -38,38 +40,43 @@ export const GlobalProvider = ({children}) => {
     // Copilot command - create function to get current income
     const getCurrIncome = async (id) => {
         const response = await axios.get(`${BASE_URL}get-income/${id}`)
-        let curr_income = response.data
-        curr_income = { ...curr_income, date: curr_income.date.substring(0, 10) };
+        let income = response.data
+        let curr_income;
+        curr_income = {
+            curr_id: income._id,
+            curr_title: income.title,
+            curr_amount: income.amount,
+            curr_type: income.type,
+            curr_date: new Date(income.date.substring(0, 10)),
+            curr_category: income.category,
+            curr_description: income.description
+    };
         // let curr_date = curr_income.date;
         // const parts = curr_date.split("-");
         // const formattedDate = `${parts[2]}/${parts[1]}/${parts[0]}`;
         // curr_income = { ...curr_income, date: formattedDate };
         // setCurrIncome(curr_income)
-        console.log('curr income',curr_income)
+        console.log('curr income', curr_income)
 
         return curr_income
     }
 
     // Copilot command - create function to delete income
     const deleteIncome = async (id) => {
-        const res  = await axios.delete(`${BASE_URL}delete-income/${id}`)
+        const res = await axios.delete(`${BASE_URL}delete-income/${id}`)
         getIncomes()
     }
 
     // Copilot command - create function to get edit income
-    const editIncome = async (id,income) => {
-        const res  = await axios.delete(`${BASE_URL}delete-income/${id}`)
-        const response = await axios.post(`${BASE_URL}add-income`, income)
-            .catch((err) =>{
-                setError(err.response.data.message)
-            })
+    const updateIncome = async (income) => {
+        const res = await axios.post(`${BASE_URL}update-income`, income)
         getIncomes()
     }
 
     // Copilot command - create function to get total income
     const totalIncome = () => {
         let totalIncome = 0;
-        incomes.forEach((income) =>{
+        incomes.forEach((income) => {
             totalIncome = totalIncome + income.amount
         })
 
@@ -81,7 +88,7 @@ export const GlobalProvider = ({children}) => {
     // Copilot command - create add expense function
     const addExpense = async (income) => {
         const response = await axios.post(`${BASE_URL}add-expense`, income)
-            .catch((err) =>{
+            .catch((err) => {
                 setError(err.response.data.message)
             })
         getExpenses()
@@ -96,14 +103,14 @@ export const GlobalProvider = ({children}) => {
 
     // Copilot command - create function to delete expense
     const deleteExpense = async (id) => {
-        const res  = await axios.delete(`${BASE_URL}delete-expense/${id}`)
+        const res = await axios.delete(`${BASE_URL}delete-expense/${id}`)
         getExpenses()
     }
 
     // Copilot command - create function to get total expenses
     const totalExpenses = () => {
         let totalIncome = 0;
-        expenses.forEach((income) =>{
+        expenses.forEach((income) => {
             totalIncome = totalIncome + income.amount
         })
 
@@ -127,30 +134,31 @@ export const GlobalProvider = ({children}) => {
 
     return (
         <GlobalContext.Provider value=
-        {{
-            addIncome,
-            getIncomes,
-            incomes,
-            deleteIncome,
-            expenses,
-            totalIncome,
-            addExpense,
-            getExpenses,
-            deleteExpense,
-            totalExpenses,
-            totalBalance,
-            currIncome,
-            setCurrIncome,
-            getCurrIncome,
-            transactionHistory,
-            error,
-            setError
-        }}>
+            {{
+                addIncome,
+                getIncomes,
+                incomes,
+                deleteIncome,
+                expenses,
+                totalIncome,
+                addExpense,
+                getExpenses,
+                deleteExpense,
+                totalExpenses,
+                totalBalance,
+                currIncome,
+                updateIncome,
+                setCurrIncome,
+                getCurrIncome,
+                transactionHistory,
+                error,
+                setError
+            }}>
             {children}
         </GlobalContext.Provider>
     )
 }
 
-export const useGlobalContext = () =>{
+export const useGlobalContext = () => {
     return useContext(GlobalContext)
 }

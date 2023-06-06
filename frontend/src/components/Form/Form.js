@@ -8,16 +8,16 @@ import { plus } from '../../utils/Icons';
 
 
 function Form() {
-    const { addIncome, getIncomes, error, setError, currIncome, setCurrIncome } = useGlobalContext()
+    const { addIncome, getIncomes, error, setError, currIncome, setCurrIncome, updateIncome } = useGlobalContext()
 
     useEffect(() => {
-      const func=()=>{
-        currIncome && setInputState(currIncome)
-      }
-    
-      func()
+        const func = () => {
+            currIncome && setInputState(currIncome)
+        }
+
+        func()
     }, [currIncome])
-    
+
     const [inputState, setInputState] = useState({
         title: '',
         amount: '',
@@ -29,22 +29,37 @@ function Form() {
 
     const { title, amount, date, category, description, type } = inputState;
 
+    const { curr_id, curr_title, curr_amount, curr_date, curr_category, curr_description, curr_type } = currIncome;
+
     const handleInput = name => e => {
-        setInputState({ ...inputState, [name]: e.target.value })
-        setError('')
+            setInputState({ ...inputState, [name]: e.target.value })
+        
     }
 
-    const handleSubmit = e => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        addIncome(inputState)
-        setInputState({
-            title: '',
-            amount: '',
-            date: '',
-            category: 'Income',
-            description: '',
-            type: ''
-        })
+        if (currIncome) {
+            await updateIncome(currIncome)
+            setCurrIncome({
+                curr_title: '',
+                curr_amount: '',
+                curr_date: '',
+                curr_category: '',
+                curr_description: '',
+                curr_type: ''
+            })
+        }
+        else {
+            await addIncome(inputState)
+            setInputState({
+                title: '',
+                amount: '',
+                date: '',
+                category: 'Income',
+                description: '',
+                type: ''
+            })
+        }
     }
 
     return (
@@ -53,33 +68,31 @@ function Form() {
             <div className="input-control">
                 <input
                     type="text"
-                    value={title}
+                    value={title || curr_title}
                     name={'title'}
                     placeholder="Salary Title"
-                    onChange={handleInput('title')}
+                    onChange={handleInput("title")}
                 />
             </div>
             <div className="input-control">
-                <input value={amount}
+                <input value={amount || curr_amount}
                     type="text"
                     name={'amount'}
                     placeholder={'Salary Amount'}
-                    onChange={handleInput('amount')}
+                    onChange={handleInput("amount")}
                 />
             </div>
             <div className="input-control">
                 <DatePicker
                     id='date'
                     placeholderText='Enter A Date'
-                    selected={date}
+                    selected={date || curr_date}
                     dateFormat="yyyy-MM-dd"
-                    onChange={(date) => {
-                        setInputState({ ...inputState, date: date })
-                    }}
+                    onChange={handleInput("date")}
                 />
             </div>
             <div className="selects input-control">
-                <select required value={type} name="type" id="type" onChange={handleInput('type')}>
+                <select required value={type || curr_type} name="type" id="type" onChange={handleInput("type")}>
                     <option value="" disabled >Select Option</option>
                     <option value="salary">Salary</option>
                     <option value="freelancing">Freelancing</option>
@@ -92,11 +105,11 @@ function Form() {
                 </select>
             </div>
             <div className="input-control">
-                <textarea name="description" value={description} placeholder='Add A Reference' id="description" cols="30" rows="4" onChange={handleInput('description')}></textarea>
+                <textarea name="description" value={description || curr_description} placeholder='Add A Reference' id="description" cols="30" rows="4" onChange={handleInput("description")}></textarea>
             </div>
             <div className="submit-btn">
                 <Button
-                    name={'Add Income'}
+                    name={currIncome ? 'Update Income' : 'Add Income'}
                     icon={plus}
                     bPad={'.8rem 1.6rem'}
                     bRad={'30px'}
@@ -107,7 +120,6 @@ function Form() {
         </FormStyled>
     )
 }
-
 
 const FormStyled = styled.form`
     display: flex;

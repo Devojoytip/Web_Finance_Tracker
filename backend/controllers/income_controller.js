@@ -41,11 +41,34 @@ exports.getIncomes = async (req, res) =>{
 
 exports.getCurrIncome = async (req, res) =>{
     try {
+        console.log('req.params.id :>> ', req.params.id)
         const curr_income = await IncomeSchema.findOne({_id:req.params.id})
         console.log('curr_income :>> ', curr_income)
         res.status(200).json(curr_income)
     } catch (error) {
         res.status(500).json('Error calling getCurrIncome API',error.message);
+    }
+}
+
+exports.updateIncome = async (req, res) =>{
+    try {
+        console.log('req.body (updateIncome):>> ', req.body)
+        const income = await IncomeSchema.findByIdAndUpdate(
+            req.body.curr_id,
+            {
+              title: req.body.curr_title,
+              amount: req.body.curr_amount,
+              category: req.body.curr_category,
+              description: req.body.curr_description,
+              date: req.body.curr_date,
+              type: req.body.curr_type
+            }
+          );
+          
+        console.log('updated_income :>> ', income)
+        res.status(200).json(income)
+    } catch (error) {
+        res.status(500).json({message:"Error in updateIncoem API",error: error.message});
     }
 }
 
