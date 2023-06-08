@@ -4,37 +4,47 @@ import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 import { useGlobalContext } from '../../context/globalContext';
 import Button from '../Button/Button';
-import { plus } from '../../utils/Icons';
+import { update } from '../../utils/Icons';
+import { dateFormat } from '../../utils/dateFormat';
 
+function Modal({
+    id,
+    title,
+    amount,
+    date,
+    category,
+    description,
+    type
+}) {
+    const { error, updateIncome } = useGlobalContext()
 
-function Form() {
-    const { addIncome, getIncomes, error, setError, currIncome, setCurrIncome, updateIncome } = useGlobalContext()
-
-    const [inputState, setInputState] = useState({
-        title: '',
-        amount: '',
-        date: '',
-        category: 'Income',
-        description: '',
-        type: ''
+    const [newState, setNewState] = useState({
+        new_id: id,
+        new_title: title,
+        new_amount: amount,
+        new_date: new Date(dateFormat(date)),
+        new_category: category,
+        new_description: description,
+        new_type: type
     })
 
-    const { title, amount, date, category, description, type } = inputState;
+    const { new_id, new_title, new_amount, new_date, new_category, new_description, new_type } = newState;
 
     const handleInput = name => e => {
-        setInputState({ ...inputState, [name]: e.target.value })     
+        setNewState({ ...newState, [name]: e.target.value })
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        await addIncome(inputState)
-        setInputState({
-            title: '',
-            amount: '',
-            date: '',
-            category: 'Income',
-            description: '',
-            type: ''
+        await updateIncome(newState)
+        setNewState({
+            new_id: id,
+            new_title: '',
+            new_amount: '',
+            new_date: '',
+            new_category: 'Income',
+            new_description: '',
+            new_type: ''
         })
     }
 
@@ -44,33 +54,33 @@ function Form() {
             <div className="input-control">
                 <input
                     type="text"
-                    value={title}
+                    value={new_title}
                     name={'title'}
                     placeholder="Salary Title"
-                    onChange={handleInput("title")}
+                    onChange={handleInput("new_title")}
                 />
             </div>
             <div className="input-control">
-                <input value={amount}
+                <input value={new_amount}
                     type="text"
                     name={'amount'}
                     placeholder={'Salary Amount'}
-                    onChange={handleInput("amount")}
+                    onChange={handleInput("new_amount")}
                 />
             </div>
             <div className="input-control">
                 <DatePicker
                     id='date'
                     placeholderText='Enter A Date'
-                    selected={date}
+                    selected={new_date}
                     dateFormat="yyyy-MM-dd"
-                    onChange={(date) => {
-                        setInputState({...inputState, date: date})
+                    onChange={(updated_date) => {
+                        setNewState({...newState, new_date: updated_date})
                     }}
                 />
             </div>
             <div className="selects input-control">
-                <select required value={type} name="type" id="type" onChange={handleInput("type")}>
+                <select required value={new_type} name="type" id="type" onChange={handleInput("new_type")}>
                     <option value="" disabled >Select Option</option>
                     <option value="salary">Salary</option>
                     <option value="freelancing">Freelancing</option>
@@ -83,12 +93,12 @@ function Form() {
                 </select>
             </div>
             <div className="input-control">
-                <textarea name="description" value={description} placeholder='Add A Reference' id="description" cols="30" rows="4" onChange={handleInput("description")}></textarea>
+                <textarea name="description" value={new_description} placeholder='Add A Reference' id="description" cols="30" rows="4" onChange={handleInput("new_description")}></textarea>
             </div>
             <div className="submit-btn">
                 <Button
-                    name={'Add Income'}
-                    icon={plus}
+                    name={'Update Income'}
+                    icon={update}
                     bPad={'.8rem 1.6rem'}
                     bRad={'30px'}
                     bg={'var(--color-accent'}
@@ -100,6 +110,9 @@ function Form() {
 }
 
 const FormStyled = styled.form`
+    position: relative;
+    width: 100%;
+    left: 0%;
     display: flex;
     flex-direction: column;
     gap: 2rem;
@@ -149,4 +162,4 @@ const FormStyled = styled.form`
         }
     }
 `;
-export default Form
+export default Modal

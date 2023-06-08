@@ -29,3 +29,4 @@ export const tv = <i className="fa-solid fa-tv"></i>
 export const circle = <i className="fa-solid fa-circle-dot"></i>
 export const rupee = <i className="fa-sharp fa-solid fa-indian-rupee-sign"></i>
 export const edit = <i class="fa-solid fa-pen-to-square"></i>
+export const update = <i class="fa-sharp fa-solid fa-pen"></i>
