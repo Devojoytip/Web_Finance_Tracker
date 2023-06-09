@@ -105,17 +105,25 @@ function IncomeItem({
                             color={'#fff'}
                             iColor={'#fff'}
                             hColor={'var(--color-green)'}
-                            onClick={() => setShowModal(prev => !prev)}
+                            onClick={() => {
+                                    setShowModal(prev => !prev)
+                                    setShowInfoModal(false)
+                                }
+                            }
                         />
                         <Button
-                            icon={showInfoModal? minus: add}
+                            icon={showInfoModal ? minus : add}
                             bPad={'1rem'}
                             bRad={'50%'}
                             bg={'var(--primary-color'}
                             color={'#fff'}
                             iColor={'#fff'}
                             hColor={'var(--color-green)'}
-                            onClick={() => setShowInfoModal(prev => !prev)}
+                            onClick={() => {
+                                    setShowInfoModal(prev => !prev)
+                                    setShowModal(false)
+                                }
+                            }
                         />
                     </div>
                 </div>
