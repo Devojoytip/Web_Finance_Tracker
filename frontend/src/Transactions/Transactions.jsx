@@ -10,7 +10,10 @@ function Transactions() {
     return (
         <TransactionStyled>
             <InnerLayout>
-                <h2>Recent History</h2>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <h2>Your Transaction History</h2>
+                </div>
+
                 {history.map((item) => {
                     const { _id, title, amount, category, date } = item
                     return (
