@@ -22,7 +22,7 @@ function Modal({
         new_id: id,
         new_title: title,
         new_amount: amount,
-        new_date: new Date(dateFormat(date)),
+        new_date: new Date(date),
         new_category: category,
         new_description: description,
         new_type: type
@@ -41,7 +41,7 @@ function Modal({
             new_id: id,
             new_title: '',
             new_amount: '',
-            new_date: '',
+            new_date: new Date(),
             new_category: 'Income',
             new_description: '',
             new_type: ''
