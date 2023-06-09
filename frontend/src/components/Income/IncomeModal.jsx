@@ -6,7 +6,7 @@ import { useGlobalContext } from '../../context/globalContext';
 import Button from '../Button/Button';
 import { update } from '../../utils/Icons';
 
-function Modal({
+function IncomeModal({
     id,
     title,
     amount,
@@ -163,4 +163,4 @@ const FormStyled = styled.form`
         }
     }
 `;
-export default Modal
+export default IncomeModal

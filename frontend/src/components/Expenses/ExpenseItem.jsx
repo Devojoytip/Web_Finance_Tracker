@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { dateFormat } from '../../utils/dateFormat';
 import { bitcoin, book, calender, card, circle, clothing, edit, food, freelance, medical, money, piggy, stocks, takeaway, trash, tv, users, yt, rupee, add, minus } from '../../utils/Icons';
 import Button from '../Button/Button';
-import Modal from '../Form/Modal';
+import Modal from '../Income/IncomeModal';
 import ExpenseModal from './ExpenseModal';
 import ExpenseInfoModal from './ExpenseInfoModal';
 

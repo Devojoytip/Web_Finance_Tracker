@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-function InfoModal({
+function IncomeInfoModal({
     description,
     type
 }) {
@@ -27,4 +27,4 @@ const FormStyled = styled.form`
         display: inline;
     }
 `;
-export default InfoModal
+export default IncomeInfoModal

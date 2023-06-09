@@ -3,8 +3,8 @@ import styled from 'styled-components'
 import { dateFormat } from '../../utils/dateFormat';
 import { bitcoin, book, calender, card, circle, clothing, edit, food, freelance, medical, money, piggy, stocks, takeaway, trash, tv, users, yt, rupee, add, minus } from '../../utils/Icons';
 import Button from '../Button/Button';
-import Modal from '../Form/Modal';
-import InfoModal from './InfoModal';
+import IncomeInfoModal from './IncomeInfoModal';
+import IncomeModal from './IncomeModal';
 
 function IncomeItem({
     id,
@@ -128,7 +128,7 @@ function IncomeItem({
                     </div>
                 </div>
                 {showModal && (
-                    <Modal
+                    <IncomeModal
                         onClose={() => setShowModal(false)}
                         id={id}
                         title={title}
@@ -141,7 +141,7 @@ function IncomeItem({
                     />
                 )}
                 {(!showModal && showInfoModal) && (
-                    <InfoModal
+                    <IncomeInfoModal
                         onClose={() => setShowInfoModal(false)}
                         id={id}
                         description={description}
