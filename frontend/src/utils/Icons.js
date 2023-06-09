@@ -30,3 +30,5 @@ export const circle = <i className="fa-solid fa-circle-dot"></i>
 export const rupee = <i className="fa-sharp fa-solid fa-indian-rupee-sign"></i>
 export const edit = <i class="fa-solid fa-pen-to-square"></i>
 export const update = <i class="fa-sharp fa-solid fa-pen"></i>
+export const add = <i class="fa-sharp fa-solid fa-circle-plus" />
+export const minus = <i class="fa-sharp fa-solid fa-circle-minus" />

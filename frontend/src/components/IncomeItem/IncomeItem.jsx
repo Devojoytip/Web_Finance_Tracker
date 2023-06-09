@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { dateFormat } from '../../utils/dateFormat';
-import { bitcoin, book, calender, card, circle, clothing, edit, food, freelance, medical, money, piggy, stocks, takeaway, trash, tv, users, yt, rupee } from '../../utils/Icons';
+import { bitcoin, book, calender, card, circle, clothing, edit, food, freelance, medical, money, piggy, stocks, takeaway, trash, tv, users, yt, rupee, add, minus } from '../../utils/Icons';
 import Button from '../Button/Button';
 import Modal from '../Form/Modal';
+import InfoModal from './InfoModal';
 
 function IncomeItem({
     id,
@@ -65,6 +66,8 @@ function IncomeItem({
 
     const [showModal, setShowModal] = useState(false)
 
+    const [showInfoModal, setShowInfoModal] = useState(false)
+
     return (
         <IncomeItemStyled indicator={indicatorColor}>
 
@@ -104,7 +107,16 @@ function IncomeItem({
                             hColor={'var(--color-green)'}
                             onClick={() => setShowModal(prev => !prev)}
                         />
-                        {typeof(date)}
+                        <Button
+                            icon={showInfoModal? minus: add}
+                            bPad={'1rem'}
+                            bRad={'50%'}
+                            bg={'var(--primary-color'}
+                            color={'#fff'}
+                            iColor={'#fff'}
+                            hColor={'var(--color-green)'}
+                            onClick={() => setShowInfoModal(prev => !prev)}
+                        />
                     </div>
                 </div>
                 {showModal && (
@@ -115,6 +127,15 @@ function IncomeItem({
                         description={description}
                         amount={amount}
                         date={date}
+                        type={type}
+                        category={category}
+                    />
+                )}
+                {(!showModal && showInfoModal) && (
+                    <InfoModal
+                        onClose={() => setShowInfoModal(false)}
+                        id={id}
+                        description={description}
                         type={type}
                         category={category}
                     />
