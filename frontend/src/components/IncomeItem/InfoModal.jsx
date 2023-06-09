@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import "react-datepicker/dist/react-datepicker.css";
 
 function InfoModal({
     description,

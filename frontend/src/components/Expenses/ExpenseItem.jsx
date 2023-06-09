@@ -138,6 +138,7 @@ function ExpenseItem({
                         date={date}
                         type={type}
                         category={category}
+                        setShowModal={setShowModal}
                     />
                 )}
                 {(!showModal && showInfoModal) && (

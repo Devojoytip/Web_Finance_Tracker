@@ -48,3 +48,25 @@ exports.deleteExpense = async (req, res) =>{
             res.status(500).json({message: 'Server Error'})
         })
 }
+
+exports.updateExpense = async (req, res) => {
+    try {
+        console.log('req.body (updateExpense):>> ', req.body)
+        const expense = await ExpenseSchema.findByIdAndUpdate(
+            req.body.new_id,
+            {
+                title: req.body.new_title,
+                amount: req.body.new_amount,
+                category: req.body.new_category,
+                description: req.body.new_description,
+                date: req.body.new_date,
+                type: req.body.new_type
+            }
+        );
+
+        console.log('updated_expense :>> ', expense)
+        res.status(200).json(expense)
+    } catch (error) {
+        res.status(500).json({ message: "Error in updateIncoem API", error: error.message });
+    }
+}

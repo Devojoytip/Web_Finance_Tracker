@@ -72,7 +72,7 @@ function IncomeItem({
         <IncomeItemStyled indicator={indicatorColor}>
 
             <div className="icon">
-                {category === 'Expense' ? expenseCatIcon() : categoryIcon()}
+                {categoryIcon()}
             </div>
             <div className="content">
                 <h5>{title}</h5>
@@ -137,6 +137,7 @@ function IncomeItem({
                         date={date}
                         type={type}
                         category={category}
+                        setShowModal={setShowModal}
                     />
                 )}
                 {(!showModal && showInfoModal) && (

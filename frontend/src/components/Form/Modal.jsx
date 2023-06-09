@@ -5,7 +5,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useGlobalContext } from '../../context/globalContext';
 import Button from '../Button/Button';
 import { update } from '../../utils/Icons';
-import { dateFormat } from '../../utils/dateFormat';
 
 function Modal({
     id,
@@ -14,7 +13,8 @@ function Modal({
     date,
     category,
     description,
-    type
+    type,
+    setShowModal
 }) {
     const { error, updateIncome } = useGlobalContext()
 
@@ -37,6 +37,7 @@ function Modal({
     const handleSubmit = async (e) => {
         e.preventDefault()
         await updateIncome(newState)
+        setShowModal(false)
         setNewState({
             new_id: id,
             new_title: '',

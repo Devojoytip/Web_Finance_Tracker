@@ -107,6 +107,12 @@ export const GlobalProvider = ({ children }) => {
         getExpenses()
     }
 
+    // Copilot command - create function to get edit expense
+    const updateExpense = async (expense) => {
+        const res = await axios.post(`${BASE_URL}update-expense`, expense)
+        getExpenses()
+    }
+
     // Copilot command - create function to get total expenses
     const totalExpenses = () => {
         let totalIncome = 0;
@@ -144,6 +150,7 @@ export const GlobalProvider = ({ children }) => {
                 addExpense,
                 getExpenses,
                 deleteExpense,
+                updateExpense,
                 totalExpenses,
                 totalBalance,
                 currIncome,
