@@ -17,7 +17,9 @@ function Dashboard() {
     return (
         <DashboardStyled>
             <InnerLayout>
-                <h1>All Transactions</h1>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <h1>All Transactions</h1>
+                </div>
                 <div className="stats-con">
                     <div className="chart-con">
                         <Chart />

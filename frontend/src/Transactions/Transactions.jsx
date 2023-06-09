@@ -11,7 +11,7 @@ function Transactions() {
         <TransactionStyled>
             <InnerLayout>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <h2>Your Transaction History</h2>
+                    <h1>Your Transaction History</h1>
                 </div>
 
                 {history.map((item) => {
